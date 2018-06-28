@@ -88,8 +88,8 @@ macro memoize(args...)
     fcachename = Symbol("##",f,"_memoized_cache")
     mod = current_module()
     fcache = isdefined(mod, fcachename) ?
-             getfield(mod, fcachename):
-             eval(mod, :(const $fcachename = ($dicttype)()))
+             getfield(mod, fcachename) :
+             eval(mod, :($fcachename = ($dicttype)()))
 
     if length(kws) == 0 && VERSION >= v"0.5.0-dev+5235"
         lookup = :($fcache[($(tup...),)]::Core.Inference.return_type($u, typeof(($(identargs...),))))
